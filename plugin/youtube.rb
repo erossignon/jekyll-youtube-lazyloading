@@ -32,6 +32,7 @@ require 'erb'
 
 class YouTube < Liquid::Tag
   Syntax = /^\s*([^\s]+)(\s+(\d+)\s+(\d+)\s*)?/
+  Cache = Hash.new
 
   def initialize(tagName, markup, tokens)
     super
@@ -52,6 +53,10 @@ class YouTube < Liquid::Tag
   end
 
   def render(context)
+
+    if ( Cache.has_key?(@id)) then 
+        return Cache[@id]
+    end
 
     # extract video information using a REST command 
     response = Net::HTTP.get_response("gdata.youtube.com","/feeds/api/videos/#{@id}?v=2&alt=jsonc")
@@ -102,6 +107,7 @@ class YouTube < Liquid::Tag
 </div>
 
 EOF
+  Cache[@id] = result
   return result
 
   end
