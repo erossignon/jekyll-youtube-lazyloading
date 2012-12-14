@@ -16,7 +16,7 @@ see [this page for a demo](http://erossignon.github.com/blog/2012/11/22/10-awsom
 
 1. Add ```youtube.rb``` to your ```plugin``` folder
 2. Copy ```_rve.sccs``` to ```/sass/custom```
-3. Add ```@import "custom/rve``` to  ```/sass/screen.scss```
+3. Add ```@import "custom/rve"``` to  ```/sass/screen.scss```
 
 ## credits
 
