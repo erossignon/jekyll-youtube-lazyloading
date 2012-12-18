@@ -76,7 +76,7 @@ class YouTube < Liquid::Tag
 
     @style = "width:100%;height:100%;background:#000 url(http://i2.ytimg.com/vi/#{@id}/0.jpg) center center no-repeat;background-size:contain;position:absolute" 
     
-    @emu = "http://www.youtube.com/embed/#{@id}"
+    @emu = "http://www.youtube.com/embed/#{@id}?autoplay=1"
 
     @videoFrame =  CGI.escapeHTML("<iframe style=\"vertical-align:top;width:100%;height:100%;position:absolute;\" src=\"#{@emu}\" frameborder=\"0\" allowfullscreen></iframe>")
  
