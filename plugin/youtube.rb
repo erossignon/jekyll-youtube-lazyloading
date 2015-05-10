@@ -59,6 +59,14 @@ class YouTube < Liquid::Tag
         return Cache[@id]
     end
 
+    site = context.registers[:site]
+    settings = site.config['youtube']
+    api_key = settings['api_key']
+
+    Yt.configure do |config|
+      config.api_key = api_key
+    end
+
     # extract video information using a REST command 
     response = Net::HTTP.get_response("gdata.youtube.com","/feeds/api/videos/#{@id}?v=2&alt=jsonc")
     data = response.body
