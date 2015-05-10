@@ -67,19 +67,11 @@ class YouTube < Liquid::Tag
       config.api_key = api_key
     end
 
-    # extract video information using a REST command 
-    response = Net::HTTP.get_response("gdata.youtube.com","/feeds/api/videos/#{@id}?v=2&alt=jsonc")
-    data = response.body
-    result = JSON.parse(data)
+    video = Yt::Video.new id: @id
 
-    # if the hash has 'Error' as a key, we raise an error
-    if result.has_key? 'Error'
-        puts "web service error or invalid video id"
-    end
-
-    # extract the title and description from the json string
-    @title = result["data"]["title"]
-    @description = result["data"]["description"]
+    # extract the title and description
+    @title = video.title
+    @description = video.description
 
     puts " title #{@title}"
 
