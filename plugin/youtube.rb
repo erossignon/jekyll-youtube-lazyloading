@@ -29,6 +29,7 @@
 #   
 require 'json'
 require 'erb'
+require 'yt'
 
 class YouTube < Liquid::Tag
   Syntax = /^\s*([^\s]+)(\s+(\d+)\s+(\d+)\s*)?/
