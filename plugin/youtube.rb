@@ -29,6 +29,7 @@
 #   
 require 'json'
 require 'erb'
+require 'yt'
 
 class YouTube < Liquid::Tag
   Syntax = /^\s*([^\s]+)(\s+(\d+)\s+(\d+)\s*)?/
@@ -58,19 +59,19 @@ class YouTube < Liquid::Tag
         return Cache[@id]
     end
 
-    # extract video information using a REST command 
-    response = Net::HTTP.get_response("gdata.youtube.com","/feeds/api/videos/#{@id}?v=2&alt=jsonc")
-    data = response.body
-    result = JSON.parse(data)
+    site = context.registers[:site]
+    settings = site.config['youtube']
+    api_key = settings['api_key']
 
-    # if the hash has 'Error' as a key, we raise an error
-    if result.has_key? 'Error'
-        puts "web service error or invalid video id"
+    Yt.configure do |config|
+      config.api_key = api_key
     end
 
-    # extract the title and description from the json string
-    @title = result["data"]["title"]
-    @description = result["data"]["description"]
+    video = Yt::Video.new id: @id
+
+    # extract the title and description
+    @title = video.title
+    @description = video.description
 
     puts " title #{@title}"
 
