@@ -18,8 +18,8 @@ see [this page for a demo](http://erossignon.github.com/blog/2012/11/22/10-awsom
 2. Add [your Youtube API key](https://github.com/Fullscreen/yt#apps-that-do-not-require-user-interactions) to your ```_config.yml``` file:
 
     ```
-    youtube
-      api_key: <put your key here>
+    youtube:
+    api_key: <put your key here>
     ```
 3. Add ```youtube.rb``` to your ```plugin``` folder
 4. Copy ```_rve.sccs``` to ```/sass/custom```
