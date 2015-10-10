@@ -19,7 +19,7 @@ see [this page for a demo](http://erossignon.github.com/blog/2012/11/22/10-awsom
 
     ```
     youtube:
-    api_key: <put your key here>
+      api_key: <put your key here>
     ```
 3. Add ```youtube.rb``` to your ```plugin``` folder
 4. Copy ```_rve.sccs``` to ```/sass/custom```
