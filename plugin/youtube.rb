@@ -65,9 +65,8 @@ class YouTube < Liquid::Tag
 
     @cache_file = File.join(@cache_folder, Digest::MD5.hexdigest("#{@id}"))
     if (File.exists?(@cache_file))
-      result = File.read(@cache_file)
-      Cache[@id] = result
-      return result
+      @video_data = JSON.parse(File.read(@cache_file))
+      Jekyll.logger.info("[Youtube]", "#{@video_data['title']} (cached)")
     end
 
     site = context.registers[:site]
