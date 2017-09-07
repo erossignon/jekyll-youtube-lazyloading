@@ -126,10 +126,6 @@ class YouTube < Liquid::Tag
 EOF
   Cache[@id] = result
   return result
-    # Cache the result in a file
-    File.open($cache_file, "w") do |f|
-      f.write(result)
-    end
 
 
   end
