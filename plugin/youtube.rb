@@ -38,6 +38,9 @@ class YouTube < Liquid::Tag
   def initialize(tagName, markup, tokens)
     super
 
+    @cache_folder = ".jekyll-cache/youtube"
+    Dir.mkdir(@cache_folder) unless File.exist?(@cache_folder)
+
     if markup =~ Syntax then
       @id = $1
 
@@ -57,6 +60,11 @@ class YouTube < Liquid::Tag
 
     if ( Cache.has_key?(@id)) then 
         return Cache[@id]
+    end
+
+    @cache_file = File.join(@cache_folder, @id)
+    if (File.exists?(@cache_file))
+      return File.read(@cache_file)
     end
 
     site = context.registers[:site]
@@ -110,6 +118,11 @@ class YouTube < Liquid::Tag
 EOF
   Cache[@id] = result
   return result
+    # Cache the result in a file
+    File.open($cache_file, "w") do |f|
+      f.write(result)
+    end
+
 
   end
 
