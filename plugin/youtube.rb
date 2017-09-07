@@ -68,22 +68,22 @@ class YouTube < Liquid::Tag
       @video_data = JSON.parse(File.read(@cache_file))
       Jekyll.logger.info("[Youtube]", "#{@video_data['title']} (cached)")
     else
-    site = context.registers[:site]
-    settings = site.config['youtube']
-    api_key = settings['api_key']
+      site = context.registers[:site]
+      settings = site.config['youtube']
+      api_key = settings['api_key']
 
-    Yt.configure do |config|
-      config.api_key = api_key
-    end
+      Yt.configure do |config|
+        config.api_key = api_key
+      end
 
-    video = Yt::Video.new id: @id
+      video = Yt::Video.new id: @id
 
-    # extract the title and description
-    @video_data = {
-      'title' => video.title,
-      'description' => video.description
-    }
-    Jekyll.logger.info("[Youtube]", "#{@video_data['title']}")
+      # extract the title and description
+      @video_data = {
+        'title' => video.title,
+        'description' => video.description
+      }
+      Jekyll.logger.info("[Youtube]", "#{@video_data['title']}")
     end
 
 
