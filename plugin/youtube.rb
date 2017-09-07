@@ -119,9 +119,9 @@ class YouTube < Liquid::Tag
 <div class="ratio-4-3 embed-video-container" onclick="#{@onclick}" title="click here to play">
 <a class="youtube-lazy-link" style="#{@style}" href="http://www.youtube.com/watch?v=#{@id}" id="#{@id}" onclick="return false;">
 <div class="youtube-lazy-link-div"></div>
-<div class="youtube-lazy-link-info">#{@title}</div>
+<div class="youtube-lazy-link-info">#{@video_data['title']}</div>
 </a>
-<div class="video-info" >#{@description}</div>
+<div class="video-info" >#{@video_data['description']}</div>
 </div>
 
 EOF
