@@ -67,8 +67,7 @@ class YouTube < Liquid::Tag
     if (File.exists?(@cache_file))
       @video_data = JSON.parse(File.read(@cache_file))
       Jekyll.logger.info("[Youtube]", "#{@video_data['title']} (cached)")
-    end
-
+    else
     site = context.registers[:site]
     settings = site.config['youtube']
     api_key = settings['api_key']
@@ -85,6 +84,7 @@ class YouTube < Liquid::Tag
       'description' => video.description
     }
     Jekyll.logger.info("[Youtube]", "#{@video_data['title']}")
+    end
 
 
     @style = "width:100%;height:100%;background:#000 url(http://i2.ytimg.com/vi/#{@id}/0.jpg) center center no-repeat;background-size:contain;position:absolute" 
