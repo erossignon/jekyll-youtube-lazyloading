@@ -40,7 +40,7 @@ class YouTube < Liquid::Tag
     super
 
     @cache_folder = '.jekyll-cache/youtube'
-    Dir.mkdir(@cache_folder) unless File.exist?(@cache_folder)
+    Dir.mkdir(@cache_folder) unless File.exists?(@cache_folder)
 
     if markup =~ Syntax then
       @id = $1
