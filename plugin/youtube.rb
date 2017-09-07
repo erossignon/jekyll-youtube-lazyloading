@@ -38,7 +38,7 @@ class YouTube < Liquid::Tag
   def initialize(tagName, markup, tokens)
     super
 
-    @cache_folder = ".jekyll-cache/youtube"
+    @cache_folder = '.jekyll-cache/youtube'
     Dir.mkdir(@cache_folder) unless File.exist?(@cache_folder)
 
     if markup =~ Syntax then
