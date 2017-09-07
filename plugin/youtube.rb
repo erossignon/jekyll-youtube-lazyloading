@@ -84,8 +84,8 @@ class YouTube < Liquid::Tag
       'title' => video.title,
       'description' => video.description
     }
+    Jekyll.logger.info("[Youtube]", "#{@video_data['title']}")
 
-    puts " title #{@title}"
 
     @style = "width:100%;height:100%;background:#000 url(http://i2.ytimg.com/vi/#{@id}/0.jpg) center center no-repeat;background-size:contain;position:absolute" 
     
