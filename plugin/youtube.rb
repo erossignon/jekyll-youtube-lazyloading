@@ -84,6 +84,11 @@ class YouTube < Liquid::Tag
         'description' => video.description
       }
       Jekyll.logger.info("[Youtube]", "#{@video_data['title']}")
+
+      # Cache the result in a file
+      File.open(@cache_file, "w") do |f|
+        f.write(@video_data.to_json)
+      end
     end
 
 
