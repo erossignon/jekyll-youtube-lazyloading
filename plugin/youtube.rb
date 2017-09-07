@@ -30,6 +30,7 @@
 require 'json'
 require 'erb'
 require 'yt'
+require 'digest'
 
 class YouTube < Liquid::Tag
   Syntax = /^\s*([^\s]+)(\s+(\d+)\s+(\d+)\s*)?/
@@ -62,7 +63,7 @@ class YouTube < Liquid::Tag
         return Cache[@id]
     end
 
-    @cache_file = File.join(@cache_folder, @id)
+    @cache_file = File.join(@cache_folder, Digest::MD5.hexdigest("#{@id}"))
     if (File.exists?(@cache_file))
       result = File.read(@cache_file)
       Cache[@id] = result
