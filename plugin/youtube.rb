@@ -80,8 +80,10 @@ class YouTube < Liquid::Tag
     video = Yt::Video.new id: @id
 
     # extract the title and description
-    @title = video.title
-    @description = video.description
+    @video_data = {
+      'title' => video.title,
+      'description' => video.description
+    }
 
     puts " title #{@title}"
 
@@ -104,7 +106,7 @@ class YouTube < Liquid::Tag
    # note: so special care is required to produce html code that will not be massage by the 
    #       markdown processor :
    #       extract from the markdown doc :  
-   #           'The only restrictions are that block-level HTML elements ¿ e.g. <div>, <table>, <pre>, <p>, etc. 
+   #           'The only restrictions are that block-level HTML elements Â¿ e.g. <div>, <table>, <pre>, <p>, etc. 
    #            must be separated from surrounding content by blank lines, and the start and end tags of the block
    #            should not be indented with tabs or spaces. '
    result = <<-EOF
