@@ -91,10 +91,9 @@ class YouTube < Liquid::Tag
       end
     end
 
+    @style = "width:100%;height:100%;background:#000 url(https://i2.ytimg.com/vi/#{@id}/0.jpg) center center no-repeat;background-size:contain;position:absolute"
 
-    @style = "width:100%;height:100%;background:#000 url(http://i2.ytimg.com/vi/#{@id}/0.jpg) center center no-repeat;background-size:contain;position:absolute" 
-    
-    @emu = "http://www.youtube.com/embed/#{@id}?autoplay=1"
+    @emu = "https://www.youtube.com/embed/#{@id}?autoplay=1"
 
     @videoFrame =  CGI.escapeHTML("<iframe style=\"vertical-align:top;width:100%;height:100%;position:absolute;\" src=\"#{@emu}\" frameborder=\"0\" allowfullscreen></iframe>")
  
@@ -117,7 +116,7 @@ class YouTube < Liquid::Tag
    result = <<-EOF
 
 <div class="ratio-4-3 embed-video-container" onclick="#{@onclick}" title="click here to play">
-<a class="youtube-lazy-link" style="#{@style}" href="http://www.youtube.com/watch?v=#{@id}" id="#{@id}" onclick="return false;">
+<a class="youtube-lazy-link" style="#{@style}" href="https://www.youtube.com/watch?v=#{@id}" id="#{@id}" onclick="return false;">
 <div class="youtube-lazy-link-div"></div>
 <div class="youtube-lazy-link-info">#{@video_data['title']}</div>
 </a>
