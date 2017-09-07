@@ -64,7 +64,9 @@ class YouTube < Liquid::Tag
 
     @cache_file = File.join(@cache_folder, @id)
     if (File.exists?(@cache_file))
-      return File.read(@cache_file)
+      result = File.read(@cache_file)
+      Cache[@id] = result
+      return result
     end
 
     site = context.registers[:site]
