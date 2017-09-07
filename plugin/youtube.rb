@@ -1,6 +1,8 @@
-#  (c) Etienne Rossignon 
+#  (c) Etienne Rossignon
 #  Licence : MIT
-#  
+#
+#  https://github.com/erossignon/jekyll-youtube-lazyloading
+#
 #  this liquid plugin insert a embeded youtube video to your octopress or Jekill blog
 #  using the following syntax:
 #    {% youtube ABCDEF123  %}
@@ -8,17 +10,17 @@
 #  this plugin has been designed to optimize loading time when many youtube videos
 #  are inserted to a single page by delaying the youtube <iframe>'s until the user
 #  click on the thumbnail image of the video.
-#  
-#  Special care have been taken to make sure tha the video resizes properly when 
-#  the webbrowser page width changes, or on smartphones. 
-#  
-#   
 #
-#  a jsfiddle to experiment the lazy loading process can be found at : 
+#  Special care have been taken to make sure tha the video resizes properly when
+#  the webbrowser page width changes, or on smartphones.
+#
+#
+#
+#  a jsfiddle to experiment the lazy loading process can be found at :
 #        http://jsfiddle.net/erossignon/3DZ6f
 #
-# credits: 
-#   responsive video : 
+# credits:
+#   responsive video :
 #       https://github.com/optikfluffel/octopress-responsive-video-embed
 #       http://andmag.se/2012/10/responsive-images-lazy-load-and-multiserve-images/
 #   lazy loading:
@@ -26,7 +28,7 @@
 #   jekyll plugin:
 #       http://makokal.github.com/blog/2012/02/24/simple-jekyll-plugin-for-youtube-videos/
 #       https://gist.github.com/1805814
-#   
+#
 require 'json'
 require 'erb'
 require 'yt'
@@ -47,7 +49,7 @@ class YouTube < Liquid::Tag
 
       if $2.nil? then
           @width = 560
-          @height = 315 
+          @height = 315
       else
           @width = $2.to_i
           @height = $3.to_i
@@ -59,11 +61,12 @@ class YouTube < Liquid::Tag
 
   def render(context)
 
-    if ( Cache.has_key?(@id)) then 
+    if (Cache.has_key?(@id)) then
         return Cache[@id]
     end
 
     @cache_file = File.join(@cache_folder, Digest::MD5.hexdigest("#{@id}"))
+
     if (File.exists?(@cache_file))
       @video_data = JSON.parse(File.read(@cache_file))
       Jekyll.logger.info("[Youtube]", "#{@video_data['title']} (cached)")
@@ -96,21 +99,21 @@ class YouTube < Liquid::Tag
     @emu = "https://www.youtube.com/embed/#{@id}?autoplay=1"
 
     @videoFrame =  CGI.escapeHTML("<iframe style=\"vertical-align:top;width:100%;height:100%;position:absolute;\" src=\"#{@emu}\" frameborder=\"0\" allowfullscreen></iframe>")
- 
-    # with jQuery 
-    #@onclick    = "$('##{@id}').replaceWith('#{@videoFrame}');return false;"
- 
-    # without JQuery
-    @onclick    = "var myAnchor = document.getElementById('#{@id}');" + 
-                  "var tmpDiv = document.createElement('div');" +  
-                  "tmpDiv.innerHTML = '#{@videoFrame}';" + 
-                  "myAnchor.parentNode.replaceChild(tmpDiv.firstChild, myAnchor);"+
-                  "return false;" 
 
-   # note: so special care is required to produce html code that will not be massage by the 
+    # with jQuery
+    #@onclick    = "$('##{@id}').replaceWith('#{@videoFrame}');return false;"
+
+    # without JQuery
+    @onclick    = "var myAnchor = document.getElementById('#{@id}');" +
+                  "var tmpDiv = document.createElement('div');" +
+                  "tmpDiv.innerHTML = '#{@videoFrame}';" +
+                  "myAnchor.parentNode.replaceChild(tmpDiv.firstChild, myAnchor);"+
+                  "return false;"
+
+   # note: so special care is required to produce html code that will not be massage by the
    #       markdown processor :
-   #       extract from the markdown doc :  
-   #           'The only restrictions are that block-level HTML elements ¿ e.g. <div>, <table>, <pre>, <p>, etc. 
+   #       extract from the markdown doc :
+   #           'The only restrictions are that block-level HTML elements � e.g. <div>, <table>, <pre>, <p>, etc.
    #            must be separated from surrounding content by blank lines, and the start and end tags of the block
    #            should not be indented with tabs or spaces. '
    result = <<-EOF
@@ -124,9 +127,10 @@ class YouTube < Liquid::Tag
 </div>
 
 EOF
-  Cache[@id] = result
-  return result
 
+    Cache[@id] = result
+
+    return result
 
   end
 
